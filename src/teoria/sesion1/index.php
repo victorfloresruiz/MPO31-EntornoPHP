@@ -107,7 +107,7 @@
 
         <div class = "descripcion">
             <?php 
-                echo('<p>Hola, me llamo ' . $nombre . 'y tengo ' . $edad . ' años. Actualmente estoy cursando ' . $curso . ' en la escuela ' . $escuela . '. Soy una persona muy sociable y fácil de tratar. En mi tiempo libre disfruto mucho de los deportes, en especial del fútbol, además de ver películas y jugar a los videojuegos con amigos. Me apasiona el mundo de la tecnología, por lo que siempre me mantengo curioso y con ganas de aprender cosas nuevas. Mi objetivo principal es seguir desarrollándome tanto a nivel personal como profesional dentro del ámbito del desarrollo web y afrontar nuevos retos. ')
+                echo('<p>Hola, me llamo ' . $nombre . 'y tengo ' . $edad . ' años. Actualmente estoy cursando ' . $curso . ' en la escuela ' . $escuela . '. Soy una persona muy sociable y fácil de tratar. En mi tiempo libre disfruto mucho de los deportes, en especial del fútbol, además de ver películas y jugar a los videojuegos con amigos. Me apasiona el mundo de la tecnología, por lo que siempre me mantengo curioso y con ganas de aprender cosas nuevas. Mi objetivo principal es seguir desarrollándome tanto a nivel personal como profesional dentro del ámbito del desarrollo web y afrontar nuevos retos.')
             ?>
         </div>
     </main>
