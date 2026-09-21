@@ -1,0 +1,37 @@
+# docker-compose.yml
+# Defineix els contenidors del projecte: php, db i adminer.
+services:
+  php:
+    build:
+      context: ./docker/php
+    container_name: mop31_php
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0
+    container_name: mop31_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: mop31
+      MYSQL_USER: mop31_user
+      MYSQL_PASSWORD: mop31_pass
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+  adminer:
+    image: adminer
+    container_name: mop31_adminer
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8081:8080"
+volumes:
+  db_data:
