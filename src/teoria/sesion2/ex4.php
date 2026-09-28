@@ -11,7 +11,8 @@ $chivato = 0;
     <?php endif; ?>
 <?php endfor; ?>
 
-<?php if ($chivato => 2):?>
+<?php if ($chivato == 2):?>
     <div>Es primo</div>
-    <?php else;?>
+    <?php else:?>
     <div>No es primo</div>
+    <?php endif;?>
