@@ -17,7 +17,8 @@ $tipusProjectes = [
     "Qualitat",
     "Web",
     "CMS",
-    "Ecommerce"
+    "Ecommerce",
+    "Web"
 ];
 
 $horas = [6, 4, 3, 5, 2, 4, 8, 3];
@@ -41,10 +42,6 @@ foreach ($prioritats as $prioritat) {
         $totalAlta++;
     }
 }
-
-foreach ($horas as $horaIndividual){
-    $totalHores += $horaIndividual;
-}
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +51,97 @@ foreach ($horas as $horaIndividual){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panell de projectes</title>
     <style>
-        
+        * {
+            box-sizing: border-box;
+            margin: 0; 
+            padding: 0; }
+ 
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(180deg, #f4f7ff, #ffffff);
+            color: #16204a;
+            padding: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+ 
+        /* Capçalera */
+        header { 
+            margin-bottom: 28px; 
+        }
+        header h1 { 
+            font-size: 2rem; 
+        }
+        header p { 
+            color: #6b7390; 
+            margin-top: 4px; 
+        }
+ 
+        h2 { 
+            font-size: 1.5rem; 
+            margin: 36px 0 16px; }
+ 
+        /* Totals de dalt */
+        .totals {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .total {
+            padding: 22px;
+            border-radius: 16px;
+            border-left: 6px solid transparent;
+        }
+        .total strong { 
+            display: block; 
+            font-size: 2.2rem; 
+            line-height: 1; 
+            margin-bottom: 6px; 
+        }
+        .total span { font-size: .95rem;
+            color: #4a5175; 
+        }
+ 
+        .blau { background: #e3eeff; 
+        border-left-color: #3b7cff; 
+        }
+        .rosa { background: #fde0e2; 
+        border-left-color: #d62f3a; 
+        }
+        .verd { background: #d9f4e3; 
+        border-left-color: #2e9e5b; 
+        }
+        .lila { background: #ece6ff; 
+        border-left-color: #7b5cf0; 
+        }
+ 
+        /* Targetes */
+        .contenidor {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .targeta {
+            background: #fff;
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(20, 30, 80, .08);
+            transition: transform .15s, box-shadow .15s;
+        }
+        .targeta h3 {
+            font-size: 1rem;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+        .targeta h3 .num { 
+            color: #6b7390; 
+            margin-right: 6px; 
+        }
+        .targeta p {
+            margin: 8px 0;
+            font-size: .92rem;
+            color: #555b7a;
+        }
     </style>
 </head>
 <body>
