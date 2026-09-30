@@ -1,73 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-    
-</body>
-</html>
-
-<?php
-
-    #condicional simple if else
-
-    $edat = 24;
-    if ($edat >= 18){
-        echo("Ets major d'edat");
-    }else{
-        echo("Ets menor");
+<style>
+    body {
+        margin: 0;
+        padding: 40px 20px;
+        background: #f8f9fa;
+        font-family: Arial, sans-serif;
     }
 
-    $asignatures = 10;
-    if($asignatures <= 10){
-        echo("Suspendes");
-    }else{
-        echo("Apruebas");
+    .contenidor {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
     }
 
-?>
-
-    <!--sintaxis alternativa-->
-
-    <?php if($edat >= 18):?>
-        <p>Eres mayor de edad</p>
-        <?php else:?>
-            <p>Eres menor de edad</p>
-            <?php endif;?>
-
-    <?php $numero = 1?>
-
-    <?php if($numero % 2 == 0):?>
-        <p>Es par</p>
-        <?php else:?>
-            <p>Es inpar</p>
-            <?php endif;?>
-
-<?php    
-    if($numero == 0){
-        echo("Es cero");
-    }else if($numero % 2 != 0){
-        echo("Es inpar");
-    }else{
-        echo("Es par");
+    .titol {
+        font-size: 30px;
+        margin: 0 0 10px;
     }
-?>
 
-<!--for-->
+    .subtitol {
+        font-size: 16px;
+        margin: 0 0 30px;
+        color: #555555;
+    }
 
-<?php for($i = 50; $i <= 500; $i = $i+2):?>
-    <div>Caixa <?= $i ?></div>
-    <?php endfor; ?>
+    .targetes {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
 
-<!--for each-->
+    .targeta {
+        width: 30%;
+        box-sizing: border-box;
+        padding: 25px 10px;
+        background: #fdf5e6;
+        border: 1px solid #bfe3f0;
+        border-radius: 8px;
+        text-decoration: none;
+        color: black;
+    }
 
-<?php $lista = [1,2,3,4];?>
+    .targeta:hover {
+        background: #a8dbe8;
+        border-color: #4f8fa3;
+    }
 
-<?php foreach($lista as $elemento){
-    echo($elemento);
-}?>
-    
+    .numero {
+        font-size: 36px;
+        margin: 0 0 8px;
+    }
+
+    .nom {
+        font-size: 15px;
+        margin: 0;
+    }
+</style>
+
+<div class="contenidor">
+
+    <h1 class="titol">Exercicis de PHP</h1>
+
+    <h2 class="subtitol">Clica en una targeta per veure l'exercici</h2>
+
+    <div class="targetes">
+
+        <a class="targeta" href="ex1.php">
+            <h3 class="numero">1</h3>
+            <p class="nom">Exercici 1</p>
+        </a>
+
+        <a class="targeta" href="ex2.php">
+            <h3 class="numero">2</h3>
+            <p class="nom">Exercici 2</p>
+        </a>
+
+        <a class="targeta" href="ex3.php">
+            <h3 class="numero">3</h3>
+            <p class="nom">Exercici 3</p>
+        </a>
+
+        <a class="targeta" href="ex4.php">
+            <h3 class="numero">4</h3>
+            <p class="nom">Exercici 4</p>
+        </a>
+
+        <a class="targeta" href="ex5.php">
+            <h3 class="numero">5</h3>
+            <p class="nom">Exercici 5</p>
+        </a>
+
+    </div>
+
+</div>
