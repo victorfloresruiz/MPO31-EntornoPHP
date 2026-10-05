@@ -60,7 +60,6 @@ foreach ($prioritats as $prioritat) {
  
         body {
             font-family: "Segoe UI", Arial, sans-serif;
-            background: linear-gradient(180deg, #f4f7ff, #ffffff);
             color: #16204a;
             padding: 32px;
             max-width: 1200px;
@@ -189,7 +188,6 @@ foreach ($prioritats as $prioritat) {
     <?php for ($i = 0; $i < $totalProjectes; $i++) { ?>
         <div class="targeta">
             <?php echo $prioritat?>
-            <?php if(){}?>
             <h3><span class="num">#<?php echo $i + 1; ?></span><?php echo $nomProjectes[$i]; ?></h3>
             <p>Tipus: <?php echo $tipusProjectes[$i]; ?></p>
             <p>Hores: <?php echo $horas[$i]; ?> h</p>
