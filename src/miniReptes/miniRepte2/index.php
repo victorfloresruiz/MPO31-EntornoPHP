@@ -42,6 +42,8 @@ foreach ($prioritats as $prioritat) {
         $totalAlta++;
     }
 }
+    
+
 ?>
 
 <!DOCTYPE html>
@@ -102,17 +104,17 @@ foreach ($prioritats as $prioritat) {
             color: #4a5175; 
         }
  
-        .blau { background: #e3eeff; 
-        border-left-color: #3b7cff; 
+        .blau { 
+            background: #e3eeff; 
         }
-        .rosa { background: #fde0e2; 
-        border-left-color: #d62f3a; 
+        .rosa { 
+            background: #fde0e2; 
         }
-        .verd { background: #d9f4e3; 
-        border-left-color: #2e9e5b; 
+        .verd { 
+            background: #d9f4e3; 
         }
-        .lila { background: #ece6ff; 
-        border-left-color: #7b5cf0; 
+        .lila { 
+            background: #ece6ff; 
         }
  
         /* Targetes */
@@ -125,8 +127,6 @@ foreach ($prioritats as $prioritat) {
             background: #fff;
             border-radius: 16px;
             padding: 18px;
-            box-shadow: 0 2px 10px rgba(20, 30, 80, .08);
-            transition: transform .15s, box-shadow .15s;
         }
         .targeta h3 {
             font-size: 1rem;
@@ -141,6 +141,18 @@ foreach ($prioritats as $prioritat) {
             margin: 8px 0;
             font-size: .92rem;
             color: #555b7a;
+        }
+
+        .alta{
+            background-color: red;
+        }
+
+        .baja {
+            background-color: green;
+        }
+
+        .media {
+            background-color: orange;
         }
     </style>
 </head>
@@ -176,6 +188,8 @@ foreach ($prioritats as $prioritat) {
 <div class="contenidor">
     <?php for ($i = 0; $i < $totalProjectes; $i++) { ?>
         <div class="targeta">
+            <?php echo $prioritat?>
+            <?php if(){}?>
             <h3><span class="num">#<?php echo $i + 1; ?></span><?php echo $nomProjectes[$i]; ?></h3>
             <p>Tipus: <?php echo $tipusProjectes[$i]; ?></p>
             <p>Hores: <?php echo $horas[$i]; ?> h</p>
