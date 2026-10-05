@@ -125,8 +125,6 @@ foreach ($prioritats as $prioritat) {
             background: #fff;
             border-radius: 16px;
             padding: 18px;
-            box-shadow: 0 2px 10px rgba(20, 30, 80, .08);
-            transition: transform .15s, box-shadow .15s;
         }
         .targeta h3 {
             font-size: 1rem;
