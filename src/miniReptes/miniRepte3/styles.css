@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #16204a;
+    background: #f4f7fd;
+    padding: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    margin-bottom: 24px;
+}
+
+h2 {
+    margin: 32px 0 16px;
+}
+
+.contenidor {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.targeta {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    border-top: 8px solid #ccc;
+}
+
+.targeta h3 {
+    margin: 8px 0;
+}
+
+.targeta p {
+    margin: 8px 0;
+    font-size: .92rem;
+}
+
+.bloc {
+    font-weight: bold;
+}
+
+.targeta pre {
+    background: #16204a;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: .8rem;
+    overflow-x: auto;
+}
+
+.estrella {
+    color: #b07a00;
+    font-weight: bold;
+}
+
+.par {
+    background: #ffffff;
+}
+
+.impar {
+    background: #f9faff;
+}
+
+.php {
+    border-top-color: #6c7ac9;
+}
+
+.js {
+    border-top-color: #f0c020;
+}
+
+.html {
+    border-top-color: #3fbf7f;
+}
+
+.docker {
+    border-top-color: #9b6cf0;
+}
+
+.resum {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.caja {
+    background: #e3eeff;
+    padding: 20px;
+    border-radius: 12px;
+}
