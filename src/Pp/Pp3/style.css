@@ -1,1 +1,107 @@
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
 
+.cabecera {
+    background-color: #e30613;
+    color: white;
+}
+
+.cabecera h1 {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.cabecera h2 {
+    font-size: 1.3rem;
+}
+
+.tarjeta-pelicula {
+    background-color: white;
+    border: none;
+    transition: all 0.3s;
+}
+
+.tarjeta-pelicula img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.tarjeta-pelicula .titulo {
+    color: #222;
+    font-weight: bold;
+}
+
+.tarjeta-pelicula .hoy {
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+.tarjeta-pelicula .card-footer {
+    background-color: transparent;
+    border-top: none;
+}
+
+.tarjeta-pelicula:hover {
+    background-color: black;
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.tarjeta-pelicula:hover .titulo {
+    color: #e30613;
+}
+
+.horario {
+    display: inline-block;
+    background-color: #e30613;
+    color: white;
+    padding: 3px 10px;
+    margin: 2px 4px 2px 0;
+    font-size: 0.85rem;
+}
+
+.boton-tarjeta {
+    color: #e30613;
+    border: 1px solid #e30613;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.boton-tarjeta:hover {
+    background-color: #e30613;
+    color: white;
+}
+
+.titulo-detalle {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.actor {
+    display: inline-block;
+    background-color: #e9e9e9;
+    padding: 2px 8px;
+    margin: 2px 2px 2px 0;
+    font-size: 0.9rem;
+}
+
+.estrellas {
+    color: #f5b301;
+    font-size: 1.5rem;
+}
+
+.barra-horarios {
+    background-color: #008b8b;
+    color: white;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.etiqueta-horarios {
+    font-weight: bold;
+    margin-right: 15px;
+}
