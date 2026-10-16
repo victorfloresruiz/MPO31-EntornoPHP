@@ -11,17 +11,17 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tràiler - Cinemes Màgic Badalona</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="cabecera text-center py-3">
-        <h2 class="mb-0">Cinemes Màgic Badalona</h2>
+    <header class="cabecera">
+        <h2>Cinemes Màgic Badalona</h2>
     </header>
 
-    <main class="container my-4 text-center">
+    <main class="contenedor contenedor-trailer">
 
         <?php if ($trobada == false) { ?>
 
@@ -29,9 +29,9 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
 
         <?php } else { ?>
 
-            <h1 class="titulo-detalle mb-4"><?php echo $pelicula["nom"]; ?></h1>
+            <h1 class="titulo-detalle" style="margin-bottom: 20px;"><?php echo $pelicula["nom"]; ?></h1>
 
-                        <div class="ratio ratio-16x9">
+            <div class="ratio-video">
                 <iframe src="<?php echo $pelicula["trailer"]; ?>?autoplay=1&mute=1"
                         title="Tràiler de <?php echo $pelicula["nom"]; ?>"
                         allow="autoplay; encrypted-media; fullscreen"
@@ -40,7 +40,7 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
 
         <?php } ?>
 
-        <a href="index.php" class="btn btn-dark mt-4">Tornar a la cartellera</a>
+        <a href="index.php" class="boton-volver" style="display: inline-block; width: auto; margin-top: 15px;">Tornar a la cartellera</a>
 
     </main>
 

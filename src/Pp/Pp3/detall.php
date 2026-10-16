@@ -75,7 +75,6 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
                         </p>
                     <?php } ?>
 
-                    <!-- Barra de horarios -->
                     <div class="barra-horarios">
                         <span class="etiqueta-horarios">HORARIS</span>
                         <?php foreach ($pelicula["horaris"] as $hora) { ?>
@@ -83,7 +82,6 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
                         <?php } ?>
                     </div>
 
-                    <!-- Galería de imágenes adicionales -->
                     <?php if (isset($pelicula["imatges_extra"])) { ?>
                         <div class="galeria-imagenes">
                             <?php foreach ($pelicula["imatges_extra"] as $imatge) { ?>
