@@ -12,38 +12,39 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detall - Cinemes Màgic Badalona</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="cabecera text-center py-3">
-        <h2 class="mb-0">Cinemes Màgic Badalona</h2>
+    <header class="cabecera">
+        <h2>Cinemes Màgic Badalona</h2>
     </header>
 
-    <main class="container my-4">
+    <main class="contenedor">
 
         <?php if ($trobada == false) { ?>
 
             <p>Pel·lícula no trobada.</p>
-            <a href="index.php" class="btn btn-dark">Tornar a la cartellera</a>
+            <a href="index.php" class="boton-volver" style="display: inline-block; width: auto; margin-top: 15px;">Tornar a la cartellera</a>
 
         <?php } else { ?>
 
             <h1 class="titulo-detalle"><?php echo $pelicula["nom"]; ?></h1>
-            <hr>
+            <hr class="linea-divisora">
 
-            <div class="row">
+            <div class="contenedor-detalle">
 
-                                <div class="col-md-4 mb-4">
-                    <img src="<?php echo $pelicula["imatge"]; ?>" class="img-fluid mb-3" alt="<?php echo $pelicula["nom"]; ?>">
-                    <a href="trailer.php?id=<?php echo $id; ?>" class="btn btn-outline-dark w-100 mb-2">▶ Tràiler</a>
-                    <a href="index.php" class="btn btn-dark w-100">Tornar a la cartellera</a>
+                <!-- Columna lateral (Imagen y Botones) -->
+                <div class="columna-lateral">
+                    <img src="<?php echo $pelicula["imatge"]; ?>" class="imagen-detalle" alt="<?php echo $pelicula["nom"]; ?>">
+                    <a href="trailer.php?id=<?php echo $id; ?>" class="boton-trailer">▶ Tràiler</a>
+                    <a href="index.php" class="boton-volver">Tornar a la cartellera</a>
                 </div>
 
-                                <div class="col-md-8">
+                <!-- Columna principal (Información) -->
+                <div class="columna-principal">
                     <p><?php echo $pelicula["sinopsi"]; ?></p>
                     <p><strong>Durada:</strong> <?php echo $pelicula["durada"]; ?></p>
                     <p><strong>Director:</strong> <?php echo $pelicula["director"]; ?></p>
@@ -58,7 +59,7 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
                     <p><strong>Qualificació:</strong> <?php echo $pelicula["qualificacio"]; ?></p>
                     <p><strong>Gènere:</strong> <?php echo $pelicula["genere"]; ?></p>
 
-                                        <?php if (isset($pelicula["valoracio"])) { ?>
+                    <?php if (isset($pelicula["valoracio"])) { ?>
                         <p>
                             <strong>Valoració:</strong>
                             <span class="estrellas">
@@ -74,44 +75,30 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
                         </p>
                     <?php } ?>
 
-                                        <div class="barra-horarios">
+                    <!-- Barra de horarios -->
+                    <div class="barra-horarios">
                         <span class="etiqueta-horarios">HORARIS</span>
                         <?php foreach ($pelicula["horaris"] as $hora) { ?>
                             <span class="horario"><?php echo $hora; ?></span>
                         <?php } ?>
                     </div>
 
-                                        <?php if (isset($pelicula["imatges_extra"])) { ?>
-                        <div id="carrusel" class="carousel slide mt-4" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <?php foreach ($pelicula["imatges_extra"] as $posicio => $imatge) { ?>
-                                    <?php
-                                    $classe = "carousel-item";
-                                    if ($posicio == 0) {
-                                        $classe = "carousel-item active";
-                                    }
-                                    ?>
-                                    <div class="<?php echo $classe; ?>">
-                                        <img src="<?php echo $imatge; ?>" class="d-block w-100" alt="Imatge extra">
-                                    </div>
-                                <?php } ?>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carrusel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carrusel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </button>
+                    <!-- Galería de imágenes adicionales -->
+                    <?php if (isset($pelicula["imatges_extra"])) { ?>
+                        <div class="galeria-imagenes">
+                            <?php foreach ($pelicula["imatges_extra"] as $imatge) { ?>
+                                <img src="<?php echo $imatge; ?>" class="imagen-extra" alt="Imatge extra de <?php echo $pelicula["nom"]; ?>">
+                            <?php } ?>
                         </div>
                     <?php } ?>
 
                 </div>
+
             </div>
 
         <?php } ?>
 
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,50 +1,82 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
 }
 
 .cabecera {
     background-color: #e30613;
     color: white;
+    text-align: center;
+    padding: 20px 10px;
 }
 
 .cabecera h1 {
+    font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 }
 
 .cabecera h2 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+.contenedor {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.grilla-peliculas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
 }
 
 .tarjeta-pelicula {
     background-color: white;
-    border: none;
-    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .tarjeta-pelicula img {
-    height: 220px;
+    width: 100%;
+    height: 280px;
     object-fit: cover;
 }
 
+.tarjeta-cuerpo {
+    padding: 15px;
+    flex-grow: 1;
+}
+
 .tarjeta-pelicula .titulo {
+    font-size: 1.1rem;
     color: #222;
     font-weight: bold;
+    margin-bottom: 8px;
 }
 
 .tarjeta-pelicula .hoy {
     margin-bottom: 6px;
     font-size: 0.9rem;
-}
-
-.tarjeta-pelicula .card-footer {
-    background-color: transparent;
-    border-top: none;
+    color: #666;
 }
 
 .tarjeta-pelicula:hover {
-    background-color: black;
+    background-color: #111;
     color: white;
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
@@ -54,21 +86,27 @@ body {
     color: #e30613;
 }
 
-.horario {
-    display: inline-block;
-    background-color: #e30613;
-    color: white;
-    padding: 3px 10px;
-    margin: 2px 4px 2px 0;
-    font-size: 0.85rem;
+.tarjeta-pelicula:hover .hoy {
+    color: #ccc;
+}
+
+.tarjeta-pie {
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    background-color: transparent;
 }
 
 .boton-tarjeta {
     color: #e30613;
     border: 1px solid #e30613;
-    padding: 4px 8px;
+    padding: 6px 10px;
     font-size: 0.8rem;
     text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.2s, color 0.2s;
+    text-align: center;
 }
 
 .boton-tarjeta:hover {
@@ -76,9 +114,14 @@ body {
     color: white;
 }
 
-.titulo-detalle {
-    font-size: 1.8rem;
-    font-weight: bold;
+.horario {
+    display: inline-block;
+    background-color: #e30613;
+    color: white;
+    padding: 3px 8px;
+    margin: 2px 4px 2px 0;
+    font-size: 0.85rem;
+    border-radius: 2px;
 }
 
 .actor {
@@ -87,21 +130,132 @@ body {
     padding: 2px 8px;
     margin: 2px 2px 2px 0;
     font-size: 0.9rem;
+    border-radius: 3px;
+    color: #333;
 }
 
 .estrellas {
     color: #f5b301;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .barra-horarios {
     background-color: #008b8b;
     color: white;
-    padding: 10px;
+    padding: 12px;
     margin-top: 15px;
+    border-radius: 4px;
 }
 
 .etiqueta-horarios {
     font-weight: bold;
     margin-right: 15px;
+}
+
+.titulo-detalle {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.linea-divisora {
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    margin-bottom: 20px;
+}
+
+.contenedor-detalle {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.columna-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.imagen-detalle {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.columna-principal p {
+    margin-bottom: 12px;
+}
+
+.boton-trailer,
+.boton-volver {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.boton-trailer {
+    border: 1px solid #222;
+    color: #222;
+    background-color: transparent;
+}
+
+.boton-trailer:hover {
+    background-color: #222;
+    color: white;
+}
+
+.boton-volver {
+    background-color: #222;
+    color: white;
+}
+
+.boton-volver:hover {
+    background-color: #444;
+}
+
+.galeria-imagenes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.imagen-extra {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.contenedor-trailer {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ratio-video {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: #000;
+    border-radius: 4px;
+}
+
+.ratio-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
