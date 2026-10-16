@@ -32,10 +32,9 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
             <h1 class="titulo-detalle" style="margin-bottom: 20px;"><?php echo $pelicula["nom"]; ?></h1>
 
             <div class="ratio-video">
-                <iframe src="<?php echo $pelicula["trailer"]; ?>?autoplay=1&mute=1"
-                        title="Tràiler de <?php echo $pelicula["nom"]; ?>"
-                        allow="autoplay; encrypted-media; fullscreen"
-                        allowfullscreen></iframe>
+                <iframe src="<?php echo $pelicula["trailer"]; ?>" 
+                title="Tràiler de <?php echo $pelicula["nom"]; ?>" 
+                allowfullscreen></iframe>
             </div>
 
         <?php } ?>

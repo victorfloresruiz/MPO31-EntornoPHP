@@ -18,6 +18,7 @@ if (isset($_GET["id"]) && isset($pelicules[$_GET["id"]])) {
 </head>
 <body>
 
+
     <header class="cabecera">
         <h2>Cinemes Màgic Badalona</h2>
     </header>
