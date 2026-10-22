@@ -30,8 +30,8 @@ function generarTablaProductos($productos) {
     echo "</tr>";
 
     foreach ($productos as $producto) {
-        $clase = $producto["disponible"] ? "" : "agotado";
-        $texto = $producto["disponible"] ? "En stock" : "Agotado";
+        $clase = $producto["disponibilidad"] ? "" : "agotado";
+        $texto = $producto["disponibilidad"] ? "En stock" : "Agotado";
 
         echo "<tr class='" . $clase . "'>";
         echo "<td>" . ucfirst($producto["nombre"]) . "</td>";

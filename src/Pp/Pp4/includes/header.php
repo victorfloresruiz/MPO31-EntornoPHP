@@ -15,13 +15,13 @@
 </style>
 
 <header>
-    <img src="assets/logo-mercadona.jpg" alt="Logo Mercadona" width="100">
+    <img src="https://logos-world.net/wp-content/uploads/2022/04/Mercadona-Symbol.png" alt="" width="100">
     <h1>Vamos al Mercadona</h1>
 
     <?php
     if ($nombre != "" && $foto != "") {
         echo "<p>Bienvenido, " . $nombre . "</p>";
-        echo "<img class='perfil' src='" . $foto . "' alt='Foto de perfil' width='60'>";
+        echo "<img class='perfil' src='" . $foto . "' alt='' width='60'>";
     }
     ?>
 </header>
