@@ -1,6 +1,13 @@
-<footer class="footer-principal">
-        <p>Mercadona S.A. - Todos los derechos reservados.</p>
-    </footer>
+<style>
+    footer {
+        background-color: #2e7d32;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: 30px;
+    }
+</style>
 
-</body>
-</html>
+<footer>
+    <p>2026 Vamos al Mercadona. Todos los derechos reservados.</p>
+</footer>
