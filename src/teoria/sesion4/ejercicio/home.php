@@ -2,25 +2,27 @@
 
 session_start();
 
-if(!isset($_SESSION['name'])){
+if(!isset($_SESSION['nombreuser'])){
     header('Location: login.php');
     exit;
 }
 
+$_SESSION['alumnes'] = ['Joan', 'Miguel', 'David', 'Pedro'];
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        <p>Hola <?= $_SESSION['nombreuser']; ?></p>
-    </div>
+<p>Hola <?= $_SESSION['nombreuser']; ?></p>
 
-    <a href="logout.php">CERRAR SESION</a>
-</body>
-</html>
+<pre>
+    <?= var_dump($_SESSION['alumnes']); ?>
+</pre>
+
+<?php
+
+array_push($_SESSION['alumnes'], 'Jonathan');
+
+?>
+
+<pre>
+    <?= var_dump($_SESSION['alumnes']); ?>
+</pre>
