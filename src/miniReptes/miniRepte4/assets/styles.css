@@ -1,0 +1,284 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5fb;
+    color: #1b2a41;
+}
+
+.envoltorio {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.barra-superior {
+    background: #14284b;
+    color: white;
+    border-bottom: 3px solid #f28c28;
+}
+
+.barra-superior-interior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.marca {
+    font-size: 20px;
+}
+
+.banner {
+    background: #1b3a66;
+    color: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.banner h1 {
+    margin: 5px 0 10px;
+    font-size: 36px;
+}
+
+.banner-subtitulo {
+    color: #f28c28;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.datos-resumen {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.cuadro {
+    flex: 1;
+    background: white;
+    border: 1px solid #dde4ef;
+    border-radius: 10px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cuadro strong {
+    font-size: 24px;
+    color: #1b3a66;
+}
+
+.lista-encargos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.encargo {
+    background: white;
+    border: 1px solid #dde4ef;
+    border-top: 4px solid #1b3a66;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.encargo-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.encargo h3 {
+    margin: 12px 0 5px;
+}
+
+.encargo p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.encargo-etiquetas {
+    color: #1b3a66;
+    font-weight: bold;
+}
+
+.encargo-botones {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.insignia {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.insignia-pendiente {
+    background: #fff1c2;
+    color: #8a6100;
+}
+
+.insignia-proceso {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.insignia-acabado {
+    background: #d9f5e3;
+    color: #1a7a3e;
+}
+
+.boton {
+    display: inline-block;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.boton-azul {
+    background: #1b3a66;
+    color: white;
+}
+
+.boton-rojo {
+    background: #fde2e4;
+    color: #a31d2b;
+}
+
+.boton-naranja {
+    background: #f28c28;
+    color: white;
+}
+
+.boton-ancho {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.caja-formulario {
+    background: white;
+    border: 1px solid #dde4ef;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 30px 0;
+}
+
+.caja-formulario label {
+    display: block;
+    margin: 12px 0 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.caja-formulario input,
+.caja-formulario select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #c8d1e0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.mensaje {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.mensaje-bien {
+    background: #e6f7ee;
+    border: 1px solid #9ad7b4;
+    color: #1a6b3a;
+}
+
+.mensaje-error {
+    background: #fde8ea;
+    border: 1px solid #f0a5ad;
+    color: #a31d2b;
+}
+
+.enlace-volver {
+    color: #1b3a66;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.ficha {
+    background: white;
+    border: 1px solid #dde4ef;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.ficha-cabecera {
+    background: #1b3a66;
+    color: white;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.ficha-cabecera h1 {
+    margin: 5px 0 10px;
+}
+
+.ficha-datos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 25px;
+}
+
+.dato span {
+    display: block;
+    font-size: 12px;
+    color: #6b7a90;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.dato strong {
+    display: block;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e3e8f0;
+}
+
+.pie-pagina {
+    text-align: center;
+    color: #6b7a90;
+    font-size: 13px;
+    padding: 20px;
+}
+
+@media (max-width: 700px) {
+    .lista-encargos,
+    .ficha-datos {
+        grid-template-columns: 1fr;
+    }
+
+    .datos-resumen {
+        flex-direction: column;
+    }
+
+    .banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
