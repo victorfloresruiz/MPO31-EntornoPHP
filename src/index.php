@@ -6,3 +6,4 @@
     echo("<h2>Hola DAW2, estamos a $temp grados</h2>");
 
 ?>
+
