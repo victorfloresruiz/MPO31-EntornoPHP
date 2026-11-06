@@ -1,10 +1,22 @@
 <?php
 
 $contenedores = [
-    "carton"   => "Papel y cartón",
-    "organica" => "Orgánica",
-    "plastico" => "Envases",
-    "vidrio"   => "Vidrio",
+    "carton" => [
+        "nombre" => "Cartón",
+        "img"    => "imagenes/azul.png"
+    ],
+    "organica" => [
+        "nombre" => "Orgánica",
+        "img"    => "imagenes/rojo.png"
+    ],
+    "plastico" => [
+        "nombre" => "Plástico",
+        "img"    => "imagenes/amarillo.png"
+    ],
+    "vidrio" => [
+        "nombre" => "Vidrio",
+        "img"    => "imagenes/verde.png"
+    ]
 ];
 
 
@@ -14,7 +26,11 @@ $basuras = [
     ["id" => 3, "titulo" => "Caja de cartón",      "contenedor" => "carton"],
     ["id" => 4, "titulo" => "Papel de periódico",  "contenedor" => "carton"],
     ["id" => 5, "titulo" => "Botella de vidrio",   "contenedor" => "vidrio"],
-    ["id" => 9, "titulo" => "Cáscara de plátano",  "contenedor" => "organica"],
+    ["id" => 6,  "titulo" => "Envase de yogur",   "contenedor" => "plastico"],
+    ["id" => 7,  "titulo" => "Bolsa de plástico", "contenedor" => "plastico"],
+    ["id" => 8,  "titulo" => "Cartón de leche",   "contenedor" => "carton"],
+    ["id" => 9, "titulo" => "Lata de conservas", "contenedor" => "plastico"],
+    ["id" => 10, "titulo" => "Cáscara de plátano",  "contenedor" => "organica"],
 ];
 
 function nuevaBasura($basuras){
