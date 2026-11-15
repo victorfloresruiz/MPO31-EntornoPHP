@@ -1,6 +1,4 @@
-
 <?php
-
 session_start();
 
 $categories = [ "Geografia", "Història", "Ciència i natura", "Art i cultura" ];
@@ -16,5 +14,21 @@ $preguntes = [
     [ "id" => 8, "categoria" => "Art i cultura", "pregunta" => "Qui va escriure El petit príncep?", "opcions" => [ "Jules Verne", "Antoine de Saint-Exupéry", "Victor Hugo", "Albert Camus" ], "correcta" => 1 ]
 ];
 
+$usuaris = [
+    [ "id" => 1, "usuari" => "admin", "password" => "admin123", "rol" => "admin" ],
+    [ "id" => 2, "usuari" => "jugador", "password" => "jugador123", "rol" => "jugador" ]
+];
+
+if (!isset($_SESSION["preguntes"])) {
+    $_SESSION["preguntes"] = $preguntes;
+}
+
+if (!isset($_SESSION["usuaris"])) {
+    $_SESSION["usuaris"] = $usuaris;
+}
+
+if (!isset($_SESSION["categories"])) {
+    $_SESSION["categories"] = $categories;
+}
 
 ?>

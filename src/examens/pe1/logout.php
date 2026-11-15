@@ -1,7 +1,13 @@
 <?php
 session_start();
-session_destroy();
-header("Location: login.php");
-exit;
 
+if (isset($_POST["accio"]) && $_POST["accio"] == "reiniciar") {
+    session_destroy();
+} else {
+    unset($_SESSION["usuari_actiu"]);
+    unset($_SESSION["partida"]);
+}
+
+header("Location: login.php");
+exit();
 ?>

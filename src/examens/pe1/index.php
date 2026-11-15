@@ -1,18 +1,24 @@
 <?php
+
+
 require_once "dades.php";
+
+
 ?>
+
+
 <!doctype html>
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inici</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <?php 
 
-include "header.php"; 
+include "includes/header.php"; 
 
 ?>
 <main class="contenidor">
@@ -36,6 +42,7 @@ include "header.php";
             <div>
                 <h2>Soc administrador</h2>
                 <p>Gestiona el banc de preguntes: consulta, afegeix, edita i elimina.</p>
+                
                 <?php if (!isset($_SESSION["usuari_actiu"])) { ?>
                     <a class="btn btn-sec" href="login.php">Entrar com administrador</a>
                 <?php } elseif ($_SESSION["usuari_actiu"]["rol"] == "admin") { ?>
@@ -47,7 +54,7 @@ include "header.php";
 </main>
 <?php 
 
-include "footer.php"; 
+include "includes/footer.php"; 
 
 ?>
 </body>

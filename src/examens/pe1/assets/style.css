@@ -1,0 +1,240 @@
+/* PLANTILLA ESTATICA - PE1 Trivial. Sense PHP ni JavaScript. */
+:root {
+  --fons: #f3f6fa;
+  --blanc: #fff;
+  --text: #17283b;
+  --sub: #5b697b;
+  --blau: #183b63;
+  --accent: #f09042;
+  --vora: #dbe3ec;
+  --verd: #207c52;
+  --vermell: #b93f43;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font:
+    16px/1.5 Arial,
+    sans-serif;
+  background: var(--fons);
+  color: var(--text);
+}
+a {
+  color: var(--blau);
+}
+.cap {
+  background: var(--blau);
+  color: #fff;
+  padding: 14px 0;
+}
+.contenidor {
+  width: min(1080px, calc(100% - 36px));
+  margin: auto;
+}
+.navegacio {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.marca {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-decoration: none;
+}
+.enllacos {
+  display: flex;
+  gap: 17px;
+  flex-wrap: wrap;
+}
+.enllacos a {
+  color: #fff;
+  text-decoration: none;
+}
+.enllacos a:hover {
+  text-decoration: underline;
+}
+main {
+  padding: 36px 0 60px;
+}
+.panell {
+  background: #fff;
+  border: 1px solid var(--vora);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 16px #1b35500c;
+}
+.ample-mig {
+  max-width: 620px;
+  margin: auto;
+}
+h1 {
+  margin: 0 0 12px;
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.35rem;
+  margin: 0 0 15px;
+}
+p {
+  margin: 0 0 15px;
+}
+.muted {
+  color: var(--sub);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.camp {
+  display: block;
+  margin-bottom: 17px;
+  font-weight: 600;
+}
+.camp input,
+.camp select,
+.camp textarea {
+  display: block;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #acbcca;
+  border-radius: 7px;
+  margin-top: 6px;
+  font: inherit;
+  background: #fff;
+}
+.camp textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+.btn {
+  display: inline-block;
+  background: var(--blau);
+  color: #fff;
+  text-decoration: none;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 19px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #285786;
+}
+.btn-sec {
+  background: #fff;
+  color: var(--blau);
+  border: 1px solid var(--blau);
+}
+.btn-perill {
+  background: var(--vermell);
+}
+.accions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.etiqueta {
+  display: inline-block;
+  font-size: 0.85rem;
+  border-radius: 99px;
+  background: #e6f1ff;
+  color: #1b4c7f;
+  padding: 4px 10px;
+  font-weight: 700;
+}
+.estadistiques {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 16px 0 22px;
+}
+.estadistiques span {
+  background: #eaf0f6;
+  padding: 9px 13px;
+  border-radius: 7px;
+}
+.resposta {
+  display: block;
+  padding: 12px 14px;
+  margin: 9px 0;
+  border: 1px solid var(--vora);
+  border-radius: 8px;
+  font-weight: 400;
+}
+.resposta input {
+  margin-right: 9px;
+}
+.alerta {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin: 16px 0;
+  background: #e7f6ed;
+  border: 1px solid #bde2c9;
+  color: #155f3c;
+}
+.alerta.error {
+  background: #fcebec;
+  border-color: #edc5c7;
+  color: #8e2834;
+}
+.taula-responsive {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--vora);
+  vertical-align: top;
+}
+th {
+  background: #edf2f7;
+}
+td .btn {
+  padding: 6px 9px;
+  font-size: 0.87rem;
+}
+.subtitol {
+  margin-bottom: 22px;
+  color: var(--sub);
+}
+.peu {
+  color: var(--sub);
+  text-align: center;
+  padding: 25px;
+}
+.nota {
+  font-size: 0.88rem;
+  color: var(--sub);
+  margin-top: 15px;
+}
+.centrat {
+  text-align: center;
+}
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .panell {
+    padding: 18px;
+  }
+  .enllacos {
+    gap: 10px;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+}
