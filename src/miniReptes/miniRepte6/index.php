@@ -9,29 +9,15 @@ if (empty($_SESSION['usuario'])) {
 
 inicializar_partida();
 
-// Patrón Post/Redirect/Get: evita que al recargar se repita la apuesta
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (($_POST['accion'] ?? '') === 'reiniciar') {
+$resultado = null;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['reiniciar'])) {
         reiniciar_partida();
     } else {
-        $_SESSION['resultado'] = procesar_apuesta($_POST);
+        $resultado = procesar_apuesta($_POST);
     }
-    header('Location: index.php');
-    exit;
 }
-
-$resultado = $_SESSION['resultado'] ?? null;
-unset($_SESSION['resultado']);
-
-// Datos de cada número (color, columna, fila...) para pintar el tapete
-$numeros = obtener_numeros();
-
-// Las 3 filas de números del tapete, de arriba a abajo.
-// Cada una es una columna de la ruleta: la de arriba es la 3 (3-6-9...), la del medio la 2 y la de abajo la 1
-$filas_tapete = [3, 2, 1];
-
-// Caballos que van pegados al 0 y al 00 (según la fila del tapete en la que estén)
-$caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -61,12 +47,11 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
         }
 
         .contenedor {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 24px 20px 40px;
         }
 
-        /* Cabecera y saldo */
         .cabecera {
             display: flex;
             flex-wrap: wrap;
@@ -93,7 +78,6 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
         .saldo span { font-size: 0.8rem; opacity: 0.8; }
         .saldo strong { font-size: 1.6rem; color: var(--dorado); }
 
-        /* Tarjetas */
         .tarjeta {
             margin-bottom: 20px;
             padding: 20px;
@@ -102,13 +86,11 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
         }
 
-        /* Tapete (la tabla donde se hace clic para apostar) */
-        /* La caja deja hacer scroll hacia los lados en el móvil */
         .tapete-caja { overflow-x: auto; }
 
         .tapete {
             width: 100%;
-            min-width: 880px;
+            min-width: 760px;
             table-layout: fixed;
             border-collapse: separate;
             border-spacing: 3px;
@@ -118,19 +100,11 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
         }
         .tapete td { padding: 0; }
 
-        /* Anchos de las columnas especiales (las de los números se reparten el resto) */
-        .tapete col.col-cero { width: 60px; }
-        .tapete col.col-fina { width: 6px; }
-        .tapete col.col-lado { width: 56px; }
-
-        /* Las filas finas (entre números y debajo) */
-        .fila-fina td { height: 6px; }
-
         .casilla {
             text-align: center;
             font-weight: 700;
             color: #fff;
-            background: rgba(255, 255, 255, 0.1);
+            background: #2f7d55;
             border: 2px solid rgba(255, 255, 255, 0.7);
             border-radius: 6px;
             cursor: pointer;
@@ -139,40 +113,11 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
         }
         .casilla:hover { filter: brightness(1.25); }
 
-        /* Casillas con número (con su bola de color dentro) */
-        .casilla.numero {
-            padding: 4px 0;
-            background: #2f7d55;
-        }
-
-        /* El 0 y el 00 */
-        .casilla.cero {
-            padding: 12px 4px;
-            font-size: 1.3rem;
-            background: #0b8a45;
-        }
-
-        /* Las casillas grandes de abajo y el "2 a 1" */
-        .casilla.fuera,
-        .casilla.lado {
-            padding: 12px 4px;
-            background: #2f7d55;
-        }
-        .casilla.fuera { font-size: 1rem; }
+        .casilla.numero { padding: 4px 0; }
+        .casilla.cero { padding: 12px 4px; font-size: 1.3rem; background: #0b8a45; }
+        .casilla.fuera, .casilla.lado { padding: 12px 4px; }
         .casilla.lado { font-size: 0.8rem; }
 
-        /* Casillas finas y vacías (caballos y filas) */
-        .casilla.fina {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px dashed rgba(255, 255, 255, 0.45);
-            border-radius: 4px;
-        }
-        .casilla.fina:hover {
-            background: rgba(212, 175, 55, 0.6);
-            filter: none;
-        }
-
-        /* Rombos rojo y negro de la fila de abajo */
         .rombo {
             display: inline-block;
             width: 64px;
@@ -183,7 +128,6 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
         .rombo.rojo { background: var(--rojo); }
         .rombo.negro { background: var(--negro); }
 
-        /* Casilla elegida */
         .casilla.elegida {
             position: relative;
             z-index: 1;
@@ -191,27 +135,24 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
             border-color: var(--dorado);
             box-shadow: 0 0 12px var(--dorado);
         }
-        .casilla.fina.elegida {
-            transform: none;
-            background: var(--dorado);
-        }
 
-        /* Formularios */
-        .form-apuesta {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        .linea {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             gap: 14px;
-            align-items: end;
-        }
-
-        .campo { display: flex; flex-direction: column; gap: 6px; }
-        .campo label { font-size: 0.85rem; font-weight: 600; color: #444; }
-
-        .seleccion {
+            margin-bottom: 10px;
             padding: 10px;
             background: #f3f5f4;
             border-radius: 8px;
-            min-height: 42px;
+        }
+        .linea input { width: 120px; }
+
+        .aviso {
+            margin: 0 0 12px;
+            padding: 10px 14px;
+            background: #fff3cd;
+            border-radius: 8px;
         }
 
         input {
@@ -228,7 +169,6 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
             box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.25);
         }
 
-        /* Botones */
         .btn {
             display: inline-block;
             padding: 11px 18px;
@@ -239,22 +179,17 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
             border: 0;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.15s, transform 0.05s;
+            transition: background 0.15s;
         }
-        .btn:active { transform: translateY(1px); }
-
         .btn-principal { color: #fff; background: var(--verde-claro); }
         .btn-principal:hover { background: var(--verde); }
-
         .btn-secundario { color: var(--verde); background: #e8f1ec; }
         .btn-secundario:hover { background: #d3e5db; }
-
         .btn-peligro { color: #fff; background: #a83232; }
         .btn-peligro:hover { background: #842626; }
 
         .form-reinicio { margin-top: 14px; }
 
-        /* Resultado de la tirada */
         .resultado {
             display: flex;
             align-items: center;
@@ -271,7 +206,6 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
         .resultado.perdida { background: #7a2530; border-color: #f1949f; }
         .resultado.error { background: #8a6d1d; border-color: #ffe08a; }
 
-        /* Bolas de la ruleta */
         .bola {
             display: inline-flex;
             align-items: center;
@@ -290,18 +224,10 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
 
         .historial { display: flex; flex-wrap: wrap; gap: 8px; }
 
-        /* Avisos */
-        .aviso {
-            margin: 0 0 12px;
-            padding: 10px 14px;
-            background: #fff3cd;
-            border-radius: 8px;
-        }
-
-        /* Móvil */
         @media (max-width: 600px) {
             h1 { font-size: 1.5rem; }
             .saldo { align-items: flex-start; width: 100%; }
+            .linea { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -316,159 +242,68 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
         </div>
     </header>
 
-    <?php if ($resultado): ?>
+    <?php if ($resultado != null): ?>
         <section class="resultado <?= $resultado['tipo'] ?>">
             <?php if (isset($resultado['numero'])): ?>
                 <span class="bola grande <?= $resultado['color'] ?>"><?= $resultado['numero'] ?></span>
+                <p>Ha salido el <strong><?= $resultado['numero'] ?></strong> (<?= $resultado['color'] ?>). <?= $resultado['mensaje'] ?></p>
+            <?php else: ?>
+                <p><?= $resultado['mensaje'] ?></p>
             <?php endif; ?>
-            <p>
-                <?php if (isset($resultado['numero'])): ?>
-                    Ha salido el <strong><?= $resultado['numero'] ?></strong> (<?= $resultado['color'] ?>).
-                <?php endif; ?>
-                <?= $resultado['mensaje'] ?>
-            </p>
         </section>
     <?php endif; ?>
 
     <section class="tarjeta">
-        <h2>Haz clic en una casilla para apostar</h2>
+        <h2>Haz clic en las casillas para apostar</h2>
 
         <div class="tapete-caja">
         <table class="tapete">
-            <!-- Anchos de las columnas: cero | fina | (número | fina) x12 | lado -->
-            <colgroup>
-                <col class="col-cero">
-                <col class="col-fina">
-                <?php for ($c = 1; $c <= 12; $c++): ?>
-                    <col>
-                    <?php if ($c < 12): ?>
-                        <col class="col-fina">
+            <?php for ($k = 3; $k >= 1; $k--): ?>
+                <tr>
+                    <?php if ($k == 3): ?>
+                        <td class="casilla cero" data-tipo="numero" data-valor="00"
+                            data-texto="Número 00 (x<?= MULTIPLICADOR_NUMERO ?>)">00</td>
                     <?php endif; ?>
-                <?php endfor; ?>
-                <col class="col-lado">
-            </colgroup>
+                    <?php if ($k == 2): ?>
+                        <td class="casilla cero" rowspan="2" data-tipo="numero" data-valor="0"
+                            data-texto="Número 0 (x<?= MULTIPLICADOR_NUMERO ?>)">0</td>
+                    <?php endif; ?>
 
-            <!-- Las 3 filas de números, con una fila fina entre cada una (son 5 filas en total) -->
-            <?php for ($r = 0; $r < 5; $r++): ?>
+                    <?php for ($c = 0; $c < 12; $c++): ?>
+                        <?php $n = $c * 3 + $k; ?>
+                        <td class="casilla numero" data-tipo="numero" data-valor="<?= $n ?>"
+                            data-texto="Número <?= $n ?> (x<?= MULTIPLICADOR_NUMERO ?>)"><span class="bola <?= color_numero($n) ?>"><?= $n ?></span></td>
+                    <?php endfor; ?>
 
-                <?php if ($r % 2 == 0): ?>
-                    <!-- FILA CON NÚMEROS -->
-                    <?php $k = $filas_tapete[intdiv($r, 2)]; ?>
-                    <tr>
-                        <?php if ($r == 0): ?>
-                            <td id="n00" class="casilla cero"
-                                data-tipo="numero" data-valor="00"
-                                data-texto="Número 00 (x<?= MULTIPLICADOR_NUMERO ?>)">00</td>
-                        <?php elseif ($r == 2): ?>
-                            <!-- El 0 ocupa las 3 últimas filas (la del medio, la fina y la de abajo) -->
-                            <td id="n0" class="casilla cero" rowspan="3"
-                                data-tipo="numero" data-valor="0"
-                                data-texto="Número 0 (x<?= MULTIPLICADOR_NUMERO ?>)">0</td>
-                        <?php endif; ?>
-
-                        <!-- Caballo entre el 0 / 00 y el primer número -->
-                        <?= celda_caballo($caballos_cero[$r]) ?>
-
-                        <?php for ($c = 1; $c <= 12; $c++): ?>
-                            <?php $n = ($c - 1) * 3 + $k; ?>
-                            <td id="n<?= $n ?>" class="casilla numero"
-                                data-tipo="numero" data-valor="<?= $n ?>"
-                                data-texto="Número <?= $n ?> (x<?= MULTIPLICADOR_NUMERO ?>)"><span class="bola <?= $numeros[$n]['color'] ?>"><?= $n ?></span></td>
-
-                            <?php if ($c < 12): ?>
-                                <!-- Caballo con el número de la derecha -->
-                                <?= celda_caballo($n . '-' . ($n + 3)) ?>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-
-                        <td id="columna<?= $k ?>" class="casilla lado"
-                            data-tipo="columna" data-valor="<?= $k ?>"
-                            data-texto="Columna <?= $k ?> (x<?= MULTIPLICADOR_COLUMNA ?>)">2 a 1</td>
-                    </tr>
-
-                <?php else: ?>
-                    <!-- FILA FINA: caballos con el número de arriba / abajo -->
-                    <?php
-                    $k_arriba = $filas_tapete[intdiv($r, 2)];
-                    $k_abajo = $filas_tapete[intdiv($r, 2) + 1];
-                    ?>
-                    <tr class="fila-fina">
-                        <?php if ($r == 1): ?>
-                            <!-- Caballo entre el 00 y el 0 -->
-                            <?= celda_caballo('0-00') ?>
-                        <?php endif; ?>
-
-                        <td></td>
-
-                        <?php for ($c = 1; $c <= 12; $c++): ?>
-                            <?php
-                            $n_abajo = ($c - 1) * 3 + $k_abajo;
-                            $n_arriba = ($c - 1) * 3 + $k_arriba;
-                            ?>
-                            <?= celda_caballo($n_abajo . '-' . $n_arriba) ?>
-
-                            <?php if ($c < 12): ?>
-                                <!-- Esquina entre 4 números: cuadro (n, n+1, n+3, n+4) -->
-                                <?= celda_cuadro($n_abajo . '-' . ($n_abajo + 1) . '-' . ($n_abajo + 3) . '-' . ($n_abajo + 4)) ?>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-
-                        <td></td>
-                    </tr>
-                <?php endif; ?>
-
+                    <td class="casilla lado" data-tipo="columna" data-valor="<?= $k ?>"
+                        data-texto="Columna <?= $k ?> (x<?= MULTIPLICADOR_COLUMNA ?>)">2 a 1</td>
+                </tr>
             <?php endfor; ?>
 
-            <!-- Fila fina de abajo: apuesta a la fila de 3 números en vertical -->
-            <tr class="fila-fina">
-                <td colspan="2"></td>
-                <?php for ($c = 1; $c <= 12; $c++): ?>
-                    <?php $primero = ($c - 1) * 3 + 1; ?>
-                    <td id="fila<?= $c ?>" class="casilla fina"
-                        data-tipo="fila" data-valor="<?= $c ?>"
-                        data-texto="Fila <?= $c ?>: <?= $primero ?>-<?= $primero + 1 ?>-<?= $primero + 2 ?> (x<?= MULTIPLICADOR_FILA ?>)"></td>
-                    <?php if ($c < 12): ?>
-                        <td></td>
-                    <?php endif; ?>
-                <?php endfor; ?>
-                <td></td>
-            </tr>
-
-            <!-- Docenas -->
             <tr>
-                <td colspan="2"></td>
-                <td id="docena1" class="casilla fuera" colspan="8"
-                    data-tipo="docena" data-valor="1"
+                <td></td>
+                <td class="casilla fuera" colspan="4" data-tipo="docena" data-valor="1"
                     data-texto="Primera docena, del 1 al 12 (x<?= MULTIPLICADOR_DOCENA ?>)">1ª docena</td>
-                <td id="docena2" class="casilla fuera" colspan="8"
-                    data-tipo="docena" data-valor="2"
+                <td class="casilla fuera" colspan="4" data-tipo="docena" data-valor="2"
                     data-texto="Segunda docena, del 13 al 24 (x<?= MULTIPLICADOR_DOCENA ?>)">2ª docena</td>
-                <td id="docena3" class="casilla fuera" colspan="7"
-                    data-tipo="docena" data-valor="3"
+                <td class="casilla fuera" colspan="4" data-tipo="docena" data-valor="3"
                     data-texto="Tercera docena, del 25 al 36 (x<?= MULTIPLICADOR_DOCENA ?>)">3ª docena</td>
                 <td></td>
             </tr>
 
-            <!-- 1-18, par, rojo, negro, impar, 19-36 -->
             <tr>
-                <td colspan="2"></td>
-                <td id="bajo" class="casilla fuera" colspan="4"
-                    data-tipo="mitad" data-valor="bajo"
+                <td></td>
+                <td class="casilla fuera" colspan="2" data-tipo="mitad" data-valor="bajo"
                     data-texto="Del 1 al 18 (x<?= MULTIPLICADOR_MITAD ?>)">1 a 18</td>
-                <td id="par" class="casilla fuera" colspan="4"
-                    data-tipo="paridad" data-valor="par"
+                <td class="casilla fuera" colspan="2" data-tipo="paridad" data-valor="par"
                     data-texto="Par (x<?= MULTIPLICADOR_PARIDAD ?>)">Par</td>
-                <td id="rojo" class="casilla fuera" colspan="4"
-                    data-tipo="color" data-valor="rojo"
+                <td class="casilla fuera" colspan="2" data-tipo="color" data-valor="rojo"
                     data-texto="Rojo (x<?= MULTIPLICADOR_COLOR ?>)"><span class="rombo rojo"></span></td>
-                <td id="negro" class="casilla fuera" colspan="4"
-                    data-tipo="color" data-valor="negro"
+                <td class="casilla fuera" colspan="2" data-tipo="color" data-valor="negro"
                     data-texto="Negro (x<?= MULTIPLICADOR_COLOR ?>)"><span class="rombo negro"></span></td>
-                <td id="impar" class="casilla fuera" colspan="4"
-                    data-tipo="paridad" data-valor="impar"
+                <td class="casilla fuera" colspan="2" data-tipo="paridad" data-valor="impar"
                     data-texto="Impar (x<?= MULTIPLICADOR_PARIDAD ?>)">Impar</td>
-                <td id="alto" class="casilla fuera" colspan="3"
-                    data-tipo="mitad" data-valor="alto"
+                <td class="casilla fuera" colspan="2" data-tipo="mitad" data-valor="alto"
                     data-texto="Del 19 al 36 (x<?= MULTIPLICADOR_MITAD ?>)">19 a 36</td>
                 <td></td>
             </tr>
@@ -476,7 +311,7 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
         </div>
     </section>
 
-    <?php if (!empty($_SESSION['historial'])): ?>
+    <?php if (count($_SESSION['historial']) > 0): ?>
         <section class="tarjeta">
             <h2>Últimos números</h2>
             <div class="historial">
@@ -488,33 +323,16 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
     <?php endif; ?>
 
     <section class="tarjeta">
-        <h2>Tu apuesta</h2>
+        <h2>Tus apuestas</h2>
 
-        <?php if ($_SESSION['dinero'] > 0): ?>
-            <form method="post" action="index.php" id="formulario" class="form-apuesta">
-                <!-- Estos dos campos los rellena el JS al hacer clic en una casilla -->
-                <input type="hidden" id="tipo" name="tipo">
-                <input type="hidden" id="valor" name="valor">
-
-                <div class="campo">
-                    <label>Casilla elegida</label>
-                    <div class="seleccion" id="seleccion">Todavía no has elegido ninguna.</div>
-                </div>
-
-                <div class="campo">
-                    <label for="apuesta">Cantidad</label>
-                    <input type="number" id="apuesta" name="apuesta" min="1"
-                           max="<?= $_SESSION['dinero'] ?>" required>
-                </div>
-
-                <button type="submit" class="btn btn-principal">Apostar</button>
-            </form>
-        <?php else: ?>
-            <p class="aviso">Te has quedado sin dinero.</p>
-        <?php endif; ?>
+        <form method="post" action="index.php">
+            <div id="lista"></div>
+            <p id="vacio" class="aviso">Todavía no has elegido ninguna casilla.</p>
+            <button type="submit" class="btn btn-principal">Apostar</button>
+        </form>
 
         <form method="post" action="index.php" class="form-reinicio">
-            <input type="hidden" name="accion" value="reiniciar">
+            <input type="hidden" name="reiniciar" value="1">
             <button type="submit" class="btn btn-secundario">Reiniciar partida</button>
         </form>
     </section>
@@ -523,51 +341,37 @@ $caballos_cero = [0 => '00-3', 2 => '0-2', 4 => '0-1'];
 </div>
 
 <script>
-    // Todas las casillas donde se puede hacer clic (números, caballos, docenas...)
     const casillas = document.querySelectorAll('.casilla');
-    const formulario = document.querySelector('#formulario');
-    const tipo = document.querySelector('#tipo');
-    const valor = document.querySelector('#valor');
-    const seleccion = document.querySelector('#seleccion');
+    const lista = document.querySelector('#lista');
+    const vacio = document.querySelector('#vacio');
 
-    // Aquí se guarda la casilla que está elegida ahora mismo
-    let elegida = null;
-
-    // Se ejecuta al hacer clic en cualquier casilla del tapete
     function elegirCasilla() {
-        // Si no hay formulario (te quedas sin dinero) no hace nada
-        if (formulario == null) {
-            return;
+        if (this.classList.contains('elegida')) {
+            this.classList.remove('elegida');
+            lista.removeChild(this.fila);
+        } else {
+            this.classList.add('elegida');
+
+            const fila = document.createElement('div');
+            fila.className = 'linea';
+            fila.innerHTML = '<span>' + this.dataset.texto + '</span>'
+                + '<input type="hidden" name="tipo[]" value="' + this.dataset.tipo + '">'
+                + '<input type="hidden" name="valor[]" value="' + this.dataset.valor + '">'
+                + '<input type="number" name="apuesta[]" min="1" placeholder="Cantidad" required>';
+
+            lista.appendChild(fila);
+            this.fila = fila;
         }
 
-        // Quitamos la marca a la casilla anterior
-        if (elegida != null) {
-            elegida.classList.remove('elegida');
+        if (lista.children.length == 0) {
+            vacio.style.display = 'block';
+        } else {
+            vacio.style.display = 'none';
         }
-
-        // Marcamos la nueva
-        elegida = this;
-        elegida.classList.add('elegida');
-
-        // Rellenamos el formulario con lo que has elegido
-        tipo.value = this.dataset.tipo;
-        valor.value = this.dataset.valor;
-        seleccion.innerHTML = '<strong>' + this.dataset.texto + '</strong>';
     }
 
-    // Le ponemos el clic a todas las casillas
     for (let i = 0; i < casillas.length; i++) {
         casillas[i].onclick = elegirCasilla;
-    }
-
-    // Antes de enviar, comprobamos que has elegido una casilla
-    if (formulario != null) {
-        formulario.onsubmit = function () {
-            if (tipo.value == '') {
-                alert('Elige primero una casilla del tapete.');
-                return false;
-            }
-        };
     }
 </script>
 </body>

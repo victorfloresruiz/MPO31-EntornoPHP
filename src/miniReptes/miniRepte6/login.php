@@ -1,19 +1,18 @@
 <?php
 session_start();
 
-if (!empty($_SESSION['usuario'])) {
+if (isset($_SESSION['usuario'])) {
     header('Location: index.php');
     exit;
 }
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    if ($username === 'admin' && $password === 'password') {
-        session_regenerate_id(true);
+    if ($username == 'admin' && $password == 'password') {
         $_SESSION['usuario'] = $username;
         header('Location: index.php');
         exit;
@@ -116,13 +115,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
-<body class="pagina-login">
-    <form method="post" class="tarjeta login">
+<body>
+    <form method="post" class="tarjeta">
         <h1>Ruleta americana</h1>
         <p class="subtitulo">Inicia sesión para jugar</p>
 
-        <?php if ($error): ?>
-            <p class="aviso error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
+        <?php if ($error != ''): ?>
+            <p class="aviso"><?= $error ?></p>
         <?php endif; ?>
 
         <div class="campo">
@@ -135,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" id="password" name="password" required>
         </div>
 
-        <button type="submit" class="btn btn-principal">Entrar</button>
+        <button type="submit" class="btn">Entrar</button>
     </form>
 </body>
 </html>
