@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["eliminar"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Administració</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="Pe1/assets/style.css">
 </head>
 <body>
 <?php
