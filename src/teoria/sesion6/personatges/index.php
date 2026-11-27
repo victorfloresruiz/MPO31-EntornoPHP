@@ -20,10 +20,7 @@ ORDER BY p.id DESC
 
 $stmt = $pdo->query($sql);
 $personatges = $stmt->fetchAll();
-
-var_dump($personatges);
 ?>
-
 <!doctype html>
 <html lang="ca">
 <head>
@@ -32,23 +29,34 @@ var_dump($personatges);
 </head>
 <body>
     <h1>Col·lecció de personatges</h1>
+    <p><a href="crear_personaje.php">+ Crear nou personatge</a></p>
+    <hr>
 
-    <?php foreach ($personatges as $personatge): ?>
-        <article>
-            <h2><?= $personatge['nom'] ?></h2>
-            <p>
-                Videojoc:
-                <?= $personatge['videojoc'] ?>
-            </p>
-            <p>
-                Propietari:
-                <?= $personatge['propietari'] ?>
-            </p>
-            <p>
-                <?= $personatge['descripcio'] ?>
-            </p>
-        </article>
-        <hr>
-    <?php endforeach; ?>
+    <?php if (empty($personatges)): ?>
+        <p>Encara no hi ha cap personatge creat.</p>
+    <?php else: ?>
+        <?php foreach ($personatges as $personatge): ?>
+            <article>
+                <h2>
+                    <a href="detalle_personaje.php?id=<?= $personatge['id'] ?>">
+                        <?= htmlspecialchars($personatge['nom']) ?>
+                    </a>
+                </h2>
+                <p><strong>Videojoc:</strong> <?= htmlspecialchars($personatge['videojoc']) ?></p>
+                <p><strong>Propietari:</strong> <?= htmlspecialchars($personatge['propietari']) ?></p>
+                
+                <div>
+                    <a href="detalle_personaje.php?id=<?= $personatge['id'] ?>">Veure detall</a> |
+                    <a href="editar_personaje.php?id=<?= $personatge['id'] ?>">Editar</a> |
+                    
+                    <form action="eliminar_personaje.php" method="post" style="display: inline;" onsubmit="return confirm('Segur que vols eliminar aquest personatge?');">
+                        <input type="hidden" name="id" value="<?= $personatge['id'] ?>">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </div>
+            </article>
+            <hr>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </body>
 </html>
