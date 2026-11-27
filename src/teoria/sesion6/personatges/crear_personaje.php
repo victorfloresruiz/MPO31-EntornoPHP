@@ -4,22 +4,20 @@ require_once('config.php');
 $pdo = db();
 $error = '';
 
-// ----------------------------------------------------
-// PROCESSAR EL FORMULARI
-// ----------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = trim($_POST['nom'] ?? '');
     $descripcio = trim($_POST['descripcio'] ?? '');
     $videojocId = $_POST['videojoc_id'] ?? '';
+    $imatge = trim($_POST['imatge'] ?? '');
 
     if ($nom === '' || $videojocId === '') {
         $error = 'El nom i el videojoc són obligatoris.';
     } else {
         $sql = '
             INSERT INTO personatges
-                (usuari_id, videojoc_id, nom, descripcio)
+                (usuari_id, videojoc_id, nom, descripcio, imatge)
             VALUES
-                (:usuari_id, :videojoc_id, :nom, :descripcio)
+                (:usuari_id, :videojoc_id, :nom, :descripcio, :imatge)
         ';
 
         $stmt = $pdo->prepare($sql);
@@ -27,18 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'usuari_id'   => 1,
             'videojoc_id' => $videojocId,
             'nom'         => $nom,
-            'descripcio'  => $descripcio
+            'descripcio'  => $descripcio,
+            'imatge'      => $imatge !== '' ? $imatge : null
         ]);
 
-        // Redirigir al llistat per evitar reenviaments del formulari
         header('Location: index.php');
         exit;
     }
 }
 
-// ----------------------------------------------------
-// OBTENIR VIDEOJOCS PER AL SELECT
-// ----------------------------------------------------
 $sql = 'SELECT id, nom FROM videojocs ORDER BY nom';
 $stmt = $pdo->query($sql);
 $videojocs = $stmt->fetchAll();
@@ -55,33 +50,35 @@ $videojocs = $stmt->fetchAll();
     <p><a href="index.php">&larr; Tornar al llistat</a></p>
 
     <?php if ($error !== ''): ?>
-        <p style="color: red;"><?= ($error) ?></p>
+        <p style="color: red;"><?= $error ?></p>
     <?php endif; ?>
 
     <form method="post">
         <label>
-            Nom:<br>
-            <input type="text" name="nom" required value="<?= ($_POST['nom'] ?? '') ?>">
+            Nom:
+            <input type="text" name="nom" required value="<?= $_POST['nom'] ?? '' ?>">
         </label>
-        <br><br>
 
         <label>
-            Descripció:<br>
-            <textarea name="descripcio" rows="4" cols="40"><?= ($_POST['descripcio'] ?? '') ?></textarea>
+            URL de la imatge (opcional):
+            <input type="url" name="imatge" placeholder="https://exemple.com/imatge.jpg" value="<?= $_POST['imatge'] ?? '' ?>">
         </label>
-        <br><br>
 
         <label>
-            Videojoc:<br>
+            Descripció:
+            <textarea name="descripcio" rows="4" cols="40"><?= $_POST['descripcio'] ?? '' ?></textarea>
+        </label>
+
+        <label>
+            Videojoc:
             <select name="videojoc_id" required>
                 <?php foreach ($videojocs as $videojoc): ?>
                     <option value="<?= $videojoc['id'] ?>">
-                        <?= ($videojoc['nom']) ?>
+                        <?= $videojoc['nom'] ?>
                     </option>
                 <?php endforeach; ?>
             </select>
         </label>
-        <br><br>
 
         <button type="submit">Crear personatge</button>
     </form>

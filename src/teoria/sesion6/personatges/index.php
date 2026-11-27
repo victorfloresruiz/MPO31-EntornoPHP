@@ -8,6 +8,7 @@ SELECT
     p.id,
     p.nom,
     p.descripcio,
+    p.imatge,
     v.nom AS videojoc,
     u.nom AS propietari
 FROM personatges AS p
@@ -31,7 +32,6 @@ $personatges = $stmt->fetchAll();
 <body>
     <h1>Col·lecció de personatges</h1>
     <p><a href="crear_personaje.php">+ Crear nou personatge</a></p>
-    <hr>
 
     <?php if (empty($personatges)): ?>
         <p>Encara no hi ha cap personatge creat.</p>
@@ -40,11 +40,16 @@ $personatges = $stmt->fetchAll();
             <article>
                 <h2>
                     <a href="detalle_personaje.php?id=<?= $personatge['id'] ?>">
-                        <?= ($personatge['nom']) ?>
+                        <?= $personatge['nom'] ?>
                     </a>
                 </h2>
-                <p><strong>Videojoc:</strong> <?= ($personatge['videojoc']) ?></p>
-                <p><strong>Propietari:</strong> <?= ($personatge['propietari']) ?></p>
+
+                <?php if (!empty($personatge['imatge'])): ?>
+                    <img src="<?= $personatge['imatge'] ?>" alt="<?= $personatge['nom'] ?>">
+                <?php endif; ?>
+
+                <p><strong>Videojoc:</strong> <?= $personatge['videojoc'] ?></p>
+                <p><strong>Propietari:</strong> <?= $personatge['propietari'] ?></p>
                 
                 <div>
                     <a href="detalle_personaje.php?id=<?= $personatge['id'] ?>">Veure detall</a> |
@@ -56,7 +61,6 @@ $personatges = $stmt->fetchAll();
                     </form>
                 </div>
             </article>
-            <hr>
         <?php endforeach; ?>
     <?php endif; ?>
 </body>
