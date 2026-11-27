@@ -48,25 +48,26 @@ $videojocs = $stmt->fetchAll();
 <head>
     <meta charset="utf-8">
     <title>Crear personatge</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Crear personatge</h1>
     <p><a href="index.php">&larr; Tornar al llistat</a></p>
 
     <?php if ($error !== ''): ?>
-        <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+        <p style="color: red;"><?= ($error) ?></p>
     <?php endif; ?>
 
     <form method="post">
         <label>
             Nom:<br>
-            <input type="text" name="nom" required value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>">
+            <input type="text" name="nom" required value="<?= ($_POST['nom'] ?? '') ?>">
         </label>
         <br><br>
 
         <label>
             Descripció:<br>
-            <textarea name="descripcio" rows="4" cols="40"><?= htmlspecialchars($_POST['descripcio'] ?? '') ?></textarea>
+            <textarea name="descripcio" rows="4" cols="40"><?= ($_POST['descripcio'] ?? '') ?></textarea>
         </label>
         <br><br>
 
@@ -75,7 +76,7 @@ $videojocs = $stmt->fetchAll();
             <select name="videojoc_id" required>
                 <?php foreach ($videojocs as $videojoc): ?>
                     <option value="<?= $videojoc['id'] ?>">
-                        <?= htmlspecialchars($videojoc['nom']) ?>
+                        <?= ($videojoc['nom']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>

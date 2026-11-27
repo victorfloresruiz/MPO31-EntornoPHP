@@ -41,20 +41,21 @@ if (!$personatge) {
 <html lang="ca">
 <head>
     <meta charset="utf-8">
-    <title><?= htmlspecialchars($personatge['nom']) ?> - Detall</title>
+    <title><?= ($personatge['nom']) ?> - Detall</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <p><a href="index.php">&larr; Tornar al llistat</a></p>
 
-    <h1><?= htmlspecialchars($personatge['nom']) ?></h1>
+    <h1><?= ($personatge['nom']) ?></h1>
 
-    <p><strong>Videojoc:</strong> <?= htmlspecialchars($personatge['videojoc']) ?> (<?= htmlspecialchars($personatge['genere_videojoc']) ?>)</p>
-    <p><strong>Propietari:</strong> <?= htmlspecialchars($personatge['propietari']) ?></p>
+    <p><strong>Videojoc:</strong> <?= ($personatge['videojoc']) ?> (<?= ($personatge['genere_videojoc']) ?>)</p>
+    <p><strong>Propietari:</strong> <?= ($personatge['propietari']) ?></p>
 
     <h3>Descripció:</h3>
     <p>
         <?php if (!empty($personatge['descripcio'])): ?>
-            <?= nl2br(htmlspecialchars($personatge['descripcio'])) ?>
+            <?= nl2br(($personatge['descripcio'])) ?>
         <?php else: ?>
             <em>Sense descripció.</em>
         <?php endif; ?>

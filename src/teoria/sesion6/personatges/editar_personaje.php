@@ -69,21 +69,22 @@ $videojocActual = $_POST['videojoc_id'] ?? $personatge['videojoc_id'];
 <body>
     <h1>Editar personatge</h1>
     <p><a href="index.php">&larr; Tornar al llistat</a></p>
+    <link rel="stylesheet" href="style.css">
 
     <?php if ($error !== ''): ?>
-        <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+        <p style="color: red;"><?= ($error) ?></p>
     <?php endif; ?>
 
     <form method="post">
         <label>
             Nom:<br>
-            <input type="text" name="nom" required value="<?= htmlspecialchars($nomActual) ?>">
+            <input type="text" name="nom" required value="<?= ($nomActual) ?>">
         </label>
         <br><br>
 
         <label>
             Descripció:<br>
-            <textarea name="descripcio" rows="4" cols="40"><?= htmlspecialchars($descripcioActual) ?></textarea>
+            <textarea name="descripcio" rows="4" cols="40"><?= ($descripcioActual) ?></textarea>
         </label>
         <br><br>
 
@@ -92,7 +93,7 @@ $videojocActual = $_POST['videojoc_id'] ?? $personatge['videojoc_id'];
             <select name="videojoc_id" required>
                 <?php foreach ($videojocs as $videojoc): ?>
                     <option value="<?= $videojoc['id'] ?>" <?= ($videojoc['id'] == $videojocActual) ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($videojoc['nom']) ?>
+                        <?= ($videojoc['nom']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>

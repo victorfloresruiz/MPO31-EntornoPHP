@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f3f4f6;
+    color: #1f2937;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+h2 {
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+}
+
+h3 {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+p {
+    margin-bottom: 12px;
+}
+
+hr {
+    display: none;
+}
+
+/* Enlaces */
+a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Botón principal superior (+ Crear nou personatge) */
+body > p:first-of-type a {
+    display: inline-block;
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-bottom: 16px;
+}
+
+body > p:first-of-type a:hover {
+    background-color: #1d4ed8;
+}
+
+/* Tarjetas de personajes en index.php */
+article {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+article h2 a {
+    color: #111827;
+}
+
+article h2 a:hover {
+    color: #2563eb;
+}
+
+article > div {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Formularios (crear y editar) */
+form:not([action="eliminar_personaje.php"]) {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+form br {
+    display: none;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #374151;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 6px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #ffffff;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Botones */
+button[type="submit"] {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #1d4ed8;
+}
+
+/* Botón específico de eliminar */
+form[action="eliminar_personaje.php"] button[type="submit"] {
+    background-color: #fee2e2;
+    color: #dc2626;
+    padding: 5px 10px;
+    font-size: 0.875rem;
+}
+
+form[action="eliminar_personaje.php"] button[type="submit"]:hover {
+    background-color: #fecaca;
+}

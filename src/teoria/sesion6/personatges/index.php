@@ -26,6 +26,7 @@ $personatges = $stmt->fetchAll();
 <head>
     <meta charset="utf-8">
     <title>Personatges DB</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Col·lecció de personatges</h1>
@@ -39,11 +40,11 @@ $personatges = $stmt->fetchAll();
             <article>
                 <h2>
                     <a href="detalle_personaje.php?id=<?= $personatge['id'] ?>">
-                        <?= htmlspecialchars($personatge['nom']) ?>
+                        <?= ($personatge['nom']) ?>
                     </a>
                 </h2>
-                <p><strong>Videojoc:</strong> <?= htmlspecialchars($personatge['videojoc']) ?></p>
-                <p><strong>Propietari:</strong> <?= htmlspecialchars($personatge['propietari']) ?></p>
+                <p><strong>Videojoc:</strong> <?= ($personatge['videojoc']) ?></p>
+                <p><strong>Propietari:</strong> <?= ($personatge['propietari']) ?></p>
                 
                 <div>
                     <a href="detalle_personaje.php?id=<?= $personatge['id'] ?>">Veure detall</a> |
